@@ -2,6 +2,7 @@
 import 'babel-polyfill';
 import Trunk from 'trunks';
 import socket from '../utils/socket';
+import Repos from './Repos';
 
 export default class Socket extends Trunk {
   static store = {
@@ -10,6 +11,7 @@ export default class Socket extends Trunk {
     login_status: null,
     login_error: null,
   };
+  repos = new Repos();
   listen() {
     socket
       .on('connect', () => {
@@ -22,6 +24,7 @@ export default class Socket extends Trunk {
       })
       .on('authenticated', (user) => {
         this.set({authenticated: true, login_status: 'success'});
+        this.repos.list();
       })
       .on('authentication fails', (error) => {
         this.set({
