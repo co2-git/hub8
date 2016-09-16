@@ -36,7 +36,7 @@ class App extends Component {
       icon = <Icon
         vendor="font-awesome"
         name="circle"
-        style={{color: SocketStore.store.authenticated ? 'green' : 'orange'}}
+        style={{color: SocketStore.store.authenticated ? 'green' : 'red'}}
         size={32}
         />;
     }

@@ -8,6 +8,7 @@ export default class Socket extends Trunk {
     online: false,
     authenticated: false,
     login_status: null,
+    login_error: null,
   };
   listen() {
     socket
@@ -21,6 +22,13 @@ export default class Socket extends Trunk {
       })
       .on('authenticated', (user) => {
         this.set({authenticated: true, login_status: 'success'});
+      })
+      .on('authentication fails', (error) => {
+        this.set({
+          authenticated: false,
+          login_status: 'failed',
+          login_error: error,
+        });
       });
   }
   login(token) {
