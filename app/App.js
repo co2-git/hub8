@@ -7,6 +7,8 @@ import {
   Image,
   Link,
 } from 'reactors';
+import socket from './utils/socket';
+console.log({socket});
 
 export default class App extends Component {
   render() {
