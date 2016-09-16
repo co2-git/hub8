@@ -13,6 +13,7 @@ import {connect} from 'trunks';
 import Socket from './stores/Socket';
 import Repos from './stores/Repos';
 import Login from './components/Login';
+import Repo from './components/Repo';
 
 if (Reactors.platform === 'web') {
   Icon.href = 'node_modules/reactors-icons/assets/' +
@@ -50,7 +51,7 @@ class App extends Component {
         listOfRepos = <Text>Loading listOfRepos</Text>;
       } else {
         listOfRepos = repos.map(repo => (
-          <Text key={repo.id}>{repo.name}</Text>
+          <Repo key={repo.id} {...repo} />
         ));
       }
     }
