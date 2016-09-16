@@ -18,6 +18,7 @@
     "reactors-grid": "file:///Users/francois/Dev/reactors-grid",
     "reactors-icons": "file:///Users/francois/Dev/reactors-icons",
     "socket.io-client": "^1.4.8",
+    "trunks": "0.0.7",
     "webpack": "^1.13.2"
   },
   "main": "index.desktop.js"

@@ -9,7 +9,8 @@ import Reactors, {
 } from 'reactors';
 import Icon from 'reactors-icons';
 import {Row} from 'reactors-grid';
-import socket from './utils/socket';
+import {connect} from 'trunks';
+import Socket from './stores/Socket';
 
 if (Reactors.platform === 'web') {
   Icon.href = 'node_modules/reactors-icons/assets/' +
@@ -19,15 +20,19 @@ if (Reactors.platform === 'web') {
     'font-awesome/css/font-awesome.css';
 }
 
-export default class App extends Component {
+class App extends Component {
+  componentWillMount() {
+    this.props.trunks.Socket.listen();
+  }
   render() {
+    const SocketStore = this.props.trunks.Socket;
     return (
       <View style={styles.view}>
         <Row>
           <Icon
             vendor="font-awesome"
             name="circle"
-            style={{color: 'green'}}
+            style={{color: SocketStore.store.authenticated ? 'green' : 'orange'}}
             size={32}
             />
           <Text style={styles.h1}>hub8</Text>
@@ -36,6 +41,8 @@ export default class App extends Component {
     );
   }
 }
+
+export default connect(App, {Socket});
 
 const styles = StyleSheet.create({
   view: {
