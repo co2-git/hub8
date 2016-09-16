@@ -27,6 +27,7 @@ class App extends Component {
   }
   render() {
     const SocketStore = this.props.trunks.Socket;
+    const {authenticated} = SocketStore.store;
     let icon;
     if (SocketStore.store.login_status === 'progress') {
       icon = <Icon
@@ -46,7 +47,7 @@ class App extends Component {
           {icon}
           <Text style={styles.h1}>hub8</Text>
         </Row>
-        <Login />
+        {!authenticated && <Login />}
       </View>
     );
   }
