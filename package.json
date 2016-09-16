@@ -15,6 +15,7 @@
     "react-dom": "^15.3.1",
     "react-native": "0.33.0",
     "reactors": "^0.1.21",
+    "reactors-form": "file:///Users/francois/Dev/reactors-form",
     "reactors-grid": "file:///Users/francois/Dev/reactors-grid",
     "reactors-icons": "file:///Users/francois/Dev/reactors-icons",
     "socket.io-client": "^1.4.8",

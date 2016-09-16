@@ -11,6 +11,7 @@ import Icon from 'reactors-icons';
 import {Row} from 'reactors-grid';
 import {connect} from 'trunks';
 import Socket from './stores/Socket';
+import Login from './components/Login';
 
 if (Reactors.platform === 'web') {
   Icon.href = 'node_modules/reactors-icons/assets/' +
@@ -37,6 +38,7 @@ class App extends Component {
             />
           <Text style={styles.h1}>hub8</Text>
         </Row>
+        <Login />
       </View>
     );
   }
