@@ -27,15 +27,23 @@ class App extends Component {
   }
   render() {
     const SocketStore = this.props.trunks.Socket;
+    let icon;
+    if (SocketStore.store.login_status === 'progress') {
+      icon = <Icon
+        name="refresh"
+        />;
+    } else {
+      icon = <Icon
+        vendor="font-awesome"
+        name="circle"
+        style={{color: SocketStore.store.authenticated ? 'green' : 'orange'}}
+        size={32}
+        />;
+    }
     return (
       <View style={styles.view}>
         <Row>
-          <Icon
-            vendor="font-awesome"
-            name="circle"
-            style={{color: SocketStore.store.authenticated ? 'green' : 'orange'}}
-            size={32}
-            />
+          {icon}
           <Text style={styles.h1}>hub8</Text>
         </Row>
         <Login />
