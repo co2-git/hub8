@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {
+import Reactors, {
   View,
   Text,
   StyleSheet,
@@ -7,70 +7,34 @@ import {
   Image,
   Link,
 } from 'reactors';
+import Icon from 'reactors-icons';
+import {Row} from 'reactors-grid';
 import socket from './utils/socket';
-console.log({socket});
+
+if (Reactors.platform === 'web') {
+  Icon.href = 'node_modules/reactors-icons/assets/' +
+    'font-awesome/css/font-awesome.css';
+} else if (Reactors.platform === 'desktop') {
+  Icon.href = '../node_modules/reactors-icons/assets/' +
+    'font-awesome/css/font-awesome.css';
+}
 
 export default class App extends Component {
   render() {
-    const platforms = [
-      {
-        title: 'Web',
-        image: 'https://developer.blackberry.com/html5/webroot/img/html5_40x40.png',
-        link: 'https://www.w3.org/TR/html5/'
-      },
-      {
-        title: 'iOS',
-        image: 'https://www.unifiedremote.com/content/logos/Apple.png',
-        link: 'http://www.apple.com/ios/'
-      },
-      {
-        title: 'Android',
-        image: 'http://www.killerpokies.com/images/android-list.png',
-        link: 'https://www.android.com/'
-      },
-      {
-        title: 'Mac OSX',
-        image: 'http://www.mucommander.com/gfx/icon_osx.gif',
-        link: 'http://www.apple.com/osx/',
-      },
-      {
-        title: 'Linux',
-        image: 'https://www.yugma.com/images/linux.png',
-        link: 'http://www.ubuntu.com/'
-      },
-      {
-        title: 'Windows',
-        image: 'https://apps.education.ucsb.edu/w/images/thumb/a/a7/Windows_vista_icon.png/40px-Windows_vista_icon.png',
-        link: 'http://www.microsoft.com/en-us/windows'
-      }
-    ];
-
     return (
       <View style={styles.view}>
-        <Text style={styles.h1}>hub8</Text>
-        <Text style={styles.text}>Welcome to your Reactors app</Text>
-        <Text style={styles.text}>This app will work in:</Text>
-        <ListView
-          dataSource={platforms}
-          renderRow={this._renderPlatform}
-          />
-        <Link href="https://github.com/co2-git/reactors">
-          <Text style={[styles.text, styles.link]}>Reactors Doc</Text>
-        </Link>
+        <Row>
+          <Icon
+            vendor="font-awesome"
+            name="circle"
+            style={{color: 'green'}}
+            size={32}
+            />
+          <Text style={styles.h1}>hub8</Text>
+        </Row>
       </View>
     );
   }
-
-  _renderPlatform = (platform) => {
-    return (
-      <View style={styles.platformRow}>
-        <Image source={platform.image} style={styles.image} />
-        <Link href={platform.link}>
-          <Text style={styles.link}>{platform.title}</Text>
-        </Link>
-      </View>
-    );
-  };
 }
 
 const styles = StyleSheet.create({
