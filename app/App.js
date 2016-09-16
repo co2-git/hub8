@@ -11,6 +11,7 @@ import Icon from 'reactors-icons';
 import {Row} from 'reactors-grid';
 import {connect} from 'trunks';
 import Socket from './stores/Socket';
+import Repos from './stores/Repos';
 import Login from './components/Login';
 
 if (Reactors.platform === 'web') {
@@ -27,7 +28,9 @@ class App extends Component {
   }
   render() {
     const SocketStore = this.props.trunks.Socket;
+    const ReposStore = this.props.trunks.Repos;
     const {authenticated} = SocketStore.store;
+    const {list_status, repos = listRepos} = ReposStore.store;
     let icon;
     if (SocketStore.store.login_status === 'progress') {
       icon = <Icon
@@ -41,6 +44,16 @@ class App extends Component {
         size={32}
         />;
     }
+    let listOfRepos;
+    if (authenticated) {
+      if (list_status === 'progress') {
+        listOfRepos = <Text>Loading listOfRepos</Text>;
+      } else {
+        listOfRepos = repos.map(repo => (
+          <Text key={repo.id}>{repo.name}</Text>
+        ));
+      }
+    }
     return (
       <View style={styles.view}>
         <Row>
@@ -48,12 +61,13 @@ class App extends Component {
           <Text style={styles.h1}>hub8</Text>
         </Row>
         {!authenticated && <Login />}
+        {listOfRepos}
       </View>
     );
   }
 }
 
-export default connect(App, {Socket});
+export default connect(App, {Socket, Repos});
 
 const styles = StyleSheet.create({
   view: {
