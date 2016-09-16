@@ -17,6 +17,12 @@ export default class Socket extends Trunk {
       .on('disconnect', () => {
         console.log('%cdisconnected', 'color: red; font-weight: bold');
         this.set({online: false});
+      })
+      .on('authenticated', (user) => {
+        this.set({authenticated: true});
       });
+  }
+  login(token) {
+    socket.emit('authenticate', token);
   }
 }
