@@ -4,14 +4,14 @@ import Trunk from 'trunks';
 import socket from '../utils/socket';
 
 export default class Repos extends Trunk {
-  static store = {
+  static store = Trunk.map({
     repos: [],
-    list_status: null,
-  };
+    listStatus: null,
+  });
   list() {
-    this.set({list_status: 'progress'});
+    this.set({listStatus: 'progress'});
     socket.emit('repos.list', (repos) => {
-      this.set({list_status: 'success', repos});
+      this.set({listStatus: 'success', repos});
     });
   }
 }

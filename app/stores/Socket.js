@@ -1,17 +1,15 @@
-// import 'babel-core/register';
 import 'babel-polyfill';
 import Trunk from 'trunks';
 import socket from '../utils/socket';
-import Repos from './Repos';
 
 export default class Socket extends Trunk {
-  static store = {
+  static store = Trunk.map({
     online: false,
     authenticated: false,
-    login_status: null,
-    login_error: null,
-  };
-  repos = new Repos();
+    loginStatus: null,
+    loginError: null,
+    user: null,
+  });
   listen() {
     socket
       .on('connect', () => {
@@ -23,19 +21,18 @@ export default class Socket extends Trunk {
         this.set({online: false});
       })
       .on('authenticated', (user) => {
-        this.set({authenticated: true, login_status: 'success'});
-        this.repos.list();
+        this.set({authenticated: true, loginStatus: 'success', user});
       })
-      .on('authentication fails', (error) => {
+      .on('authentication fails', (error: Error) => {
         this.set({
           authenticated: false,
-          login_status: 'failed',
-          login_error: error,
+          loginStatus: 'failed',
+          loginError: error,
         });
       });
   }
   login(token) {
-    this.set({login_status: 'progress'});
+    this.set({loginStatus: 'pending'});
     socket.emit('authenticate', token);
   }
 }

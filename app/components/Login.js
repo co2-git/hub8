@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
+import {View} from 'reactors';
 import {connect} from 'trunks';
-import {
-  View,
-  Text,
-} from 'reactors';
 import {
   TextInput,
   Button,
@@ -14,7 +11,14 @@ import Socket from '../stores/Socket';
 class Login extends Component {
   state = {token: ''};
   login() {
-    this.props.trunks.Socket.login(this.state.token);
+    this.props.trunks.actions.Socket.login(this.state.token);
+  }
+  componentDidUpdate(prevProps) {
+    const {Socket: current} = this.props.trunks.stores;
+    const {Socket: prev} = prevProps.trunks.stores;
+    if (current.get('authenticated') && !prev.get('authenticated')) {
+      this.props.router.go('ProjectsList');
+    }
   }
   render() {
     return (
