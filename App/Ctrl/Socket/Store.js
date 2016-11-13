@@ -1,16 +1,28 @@
-import 'babel-polyfill';
-import Trunk from 'trunks';
-import socket from '../utils/socket';
+/**
+ *
+ *  @module hub8
+ *  @name AppCtrlSocketStore
+ *  @description contains trunk for sockets
+ *  @author francois
+ *  @license MIT
+ *  @type function
+ *  @flow
+ *
+**/
 
-export default class Socket extends Trunk {
-  static store = Trunk.map({
+import 'babel-polyfill';
+import Store from '../../Util/Store';
+import socket from '../../Util/socket';
+
+export default class Socket extends Store {
+  static store = {
     online: false,
     authenticated: false,
     loginStatus: null,
     loginError: null,
     user: null,
-  });
-  listen() {
+  };
+  static init() {
     socket
       .on('connect', () => {
         console.log('%cconnected', 'color: green; font-weight: bold');
@@ -22,6 +34,7 @@ export default class Socket extends Trunk {
       })
       .on('authenticated', (user) => {
         this.set({authenticated: true, loginStatus: 'success', user});
+        socket.user = user;
       })
       .on('authentication fails', (error: Error) => {
         this.set({
@@ -29,10 +42,17 @@ export default class Socket extends Trunk {
           loginStatus: 'failed',
           loginError: error,
         });
+      })
+      .on('message', (message) => {
+        if (message.maevaWarning) {
+          console.log({maevaWarning: message.maevaWarning});
+        } else {
+          console.log({message});
+        }
       });
   }
-  login(token) {
+  static login(token: string) {
     this.set({loginStatus: 'pending'});
-    socket.emit('authenticate', token);
+    socket.emit('authenticate', {token});
   }
 }

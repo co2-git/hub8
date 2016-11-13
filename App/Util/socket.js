@@ -1,7 +1,17 @@
-// @flow
+/**
+ *
+ *  @module hub8
+ *  @name UiAppUtil_socket
+ *  @description description
+ *  @author francois
+ *  @license MIT
+ *  @type function
+ *  @flow
+ *
+**/
 /* global window */
 import Reactors from 'reactors';
-import config from '../config';
+import config from './config';
 
 let io;
 

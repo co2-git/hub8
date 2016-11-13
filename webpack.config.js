@@ -20,6 +20,10 @@ module.exports = {
         test: /node_modules\/react-native/,
         loader: 'ignore-loader',
       },
+      {
+        test: /\.json$/,
+        loader: 'json',
+      },
     ]
   },
   watch: true,

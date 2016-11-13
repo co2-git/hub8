@@ -5,10 +5,11 @@ import {
   View,
 } from 'reactors';
 import {connect} from 'trunks';
-import Repos from '../stores/Repos';
-import Repo from './Repo';
+import Repos from '../../stores/Repos';
+import Repo from './Item';
+import Pages from '../Pagination/Pages';
 
-class Importer extends Component {
+class RepoList extends Component {
   componentDidMount() {
     this.props.trunks.actions.Repos.list();
   }
@@ -23,13 +24,23 @@ class Importer extends Component {
     case 'success':
       contents = repos.map(repo => <Repo key={repo.id} {...repo} />);
       break;
+    default:
+      contents = <Text>List of your repos</Text>;
+      break;
     }
     return (
       <View>
         {contents}
+        <View style={{margin: 30}}>
+          <Pages
+            pages={this.props.trunks.stores.Repos.get('pages')}
+            page={this.props.trunks.stores.Repos.get('page')}
+            handler={(page) => this.props.trunks.actions.Repos.list({page})}
+            />
+        </View>
       </View>
     );
   }
 }
 
-export default connect(Importer, {Repos});
+export default connect(RepoList, {Repos});

@@ -5,8 +5,8 @@ export default class Milestones extends Trunk {
   static store = Trunk.map({
     addStatus: null,
   });
-  add({project, title}) {
+  add({project, milestone}) {
     this.set({addStatus: 'progress'});
-    socket.emit('milestones.add', project, title);
+    socket.emit('milestones.add', project, milestone);
   }
 }

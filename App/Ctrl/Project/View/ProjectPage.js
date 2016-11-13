@@ -10,7 +10,7 @@ import {Row} from 'reactors-grid';
 import {Button} from 'reactors-form';
 import Router, {Route} from 'reactors-router';
 import Projects from '../stores/Projects';
-import Issues from './Issues';
+import Issues from './Issues/list';
 import RoadMap from './RoadMap';
 
 class ProjectPage extends Component {
@@ -45,7 +45,13 @@ class ProjectPage extends Component {
               milestones: project.milestones,
             }}
             />
-          <Route scene={Issues} props={{issues: project.issues}} />
+          <Route
+            scene={Issues}
+            props={{
+              project,
+              issues: () => project.issues,
+            }}
+            />
         </Router>
       </View>
     );

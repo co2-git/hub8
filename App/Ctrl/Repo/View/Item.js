@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import {
   View,
@@ -10,7 +12,7 @@ import moment from 'moment';
 import {connect} from 'trunks';
 import _ from 'lodash';
 import Router from 'reactors-router';
-import Projects from '../stores/Projects';
+import Projects from '../../stores/Projects';
 
 function Repo(props) {
   const {Projects: ProjectsStore} = props.trunks.stores;

@@ -22,7 +22,10 @@ class RoadMap extends Component {
               if (this.state.newVersion) {
                 this.props.trunks.actions.Milestones.add({
                   project: this.props.project,
-                  title: this.state.newVersion,
+                  milestone: {
+                    title: this.state.newVersion,
+                    description: 'foo',
+                  },
                 });
               }
             }}
